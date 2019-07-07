@@ -17,6 +17,6 @@ for foo in *; do
         cd $foo
         converter.sh
         echo "leaving $foo"
-        cd..
+        cd ..
     fi
 done

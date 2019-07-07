@@ -45,8 +45,8 @@ On_White='\033[47m'       # White
 
 USER=`whoami`
 HOSTNAME=`hostname`
-DISC1=`df -h | grep rootfs | awk '{print $5}'`
-DISC2=`df -h | grep rootfs | awk '{print $4}'`
+DISC1=`df -h | grep /dev/sda | awk '{print $5}'`
+DISC2=`df -h | grep /dev/sda | awk '{print $4}'`
 MEMORY1=`free -t -m | grep "buffers/cache" | awk '{print $3" MB";}'`
 MEMORY2=`free -t -m | grep "Mem" | awk '{print $2" MB";}'`
 PSA=`ps -Afl | wc -l`
@@ -72,7 +72,7 @@ clear
 
 echo ""
 echo ""
-echo "$BRed If you gain access to this server without permission logout now!! $Color_Off"
+echo -e "$BRed If you gain access to this server without permission logout now!! $Color_Off"
 echo ""
 echo ""
 echo "██████╗ ██████╗  ██████╗ ███╗   ███╗███████╗████████╗██╗  ██╗███████╗██╗   ██╗███████╗"
@@ -85,32 +85,32 @@ echo ""
 echo ""
 echo -e "$Yellow [Home-Server] $Color_Off"
 echo ""
-echo -e "$Cyan ++++++++++++++++++++++++++++: $White System Data $Cyan :+++++++++++++++++++++++++++ $Color_Off"
+echo -e "$Cyan +++++++++++++++++++++++++: $White System Data $Cyan :++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $White Hostname        $Cyan =   $BCyan $HOSTNAME $Color_Off"
-echo -e "$Cyan + $White Kernel          $Cyan =   $BCyan `uname -r` $Color_Off"
-echo -e "$Cyan + $White Arch            $Cyan =   $BCyan `uname -m` $Color_Off"
-echo -e "$Cyan + $White System	        $Cyan =   $BCyan $PACMAN packages can be updated $Color_Off"
-echo -e "$Cyan + $White Processor       $Cyan =   $BCyan Intel(R) Pentium(R) CPU G630 @ 2.70GHz, 2 cores $Color_Off"
-echo -e "$Cyan + $White Users	        $Cyan =   $BCyan Currently `users | wc -w` users logged on $Color_Off"
-echo -e "$Cyan + $White HD Temp	        $Cyan =   $BCyan 320_Sys = $HDD1 ºC | $Color_Off"
+echo -e "$Cyan + $White Hostname $Red : $BCyan $HOSTNAME $Color_Off"
+echo -e "$Cyan + $White Kernel $Red : $BCyan `uname -r` $Color_Off"
+echo -e "$Cyan + $White Distro $Red : $BCyan `uname -m` $Color_Off"
+echo -e "$Cyan + $White Processor $Red : $BCyan Intel(R) Pentium(R) CPU G630 @ 2.70GHz, 2 cores $Color_Off"
+echo -e "$Cyan + $White Users $Red : $BCyan Currently `users | wc -w` users logged on $Color_Off"
+echo -e "$Cyan + $White HD Temp $Red : $BCyan 320_Sys = $HDD1 ºC | $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan ++++++++++++++++++++++++++++: $White User Data $Cyan :+++++++++++++++++++++++++++++ $Color_Off"
+echo -e "$Cyan +++++++++++++++++++++++++: $White User Data $Cyan :++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $White Current User		$Cyan =  $BCyan $USER $Color_Off"
-echo -e "$Cyan + $White CPU Usage		    $Cyan =  $BCyan $LOAD1 1 min $LOAD5 5 min $LOAD15 15 min $Color_Off"
-echo -e "$Cyan + $White CPU Temperature	    $Cyan =  $BCyan `acpi -t | cut -f4 -d' '` C $Color_Off"
-echo -e "$Cyan + $White Memory Used	    	$Cyan =  $BCyan $MEMORY1 / $MEMORY2 $Color_Off"
-echo -e "$Cyan + $White Processes		    $Cyan =  $BCyan You are running $PSU of $PSA processes $Color_Off"
-echo -e "$Cyan + $White System Uptime 	    $Cyan =  $BCyan $upDays days $upHours hours $upMins minutes $upSecs seconds $Color_Off"
-echo -e "$Cyan + $White Disk Space Used 	$Cyan =  $BCyan $DISC1 $Color_Off"
-echo -e "$Cyan + $White Free Disk Space 	$Cyan =  $BCyan $DISC2 $Color_Off"
+echo -e "$Cyan + $White Current User $Red: $BCyan $USER $Color_Off"
+echo -e "$Cyan + $White CPU Usage $Red: $BCyan $LOAD1 1 min $LOAD5 5 min $LOAD15 15 min $Color_Off"
+echo -e "$Cyan + $White CPU Temperature $Red: $BCyan `acpi -t | cut -f4 -d' '` C $Color_Off"
+echo -e "$Cyan + $White Memory Used $Red: $BCyan $MEMORY1 / $MEMORY2 $Color_Off"
+echo -e "$Cyan + $White Processes $Red: $BCyan You are running $PSU of $PSA processes $Color_Off"
+echo -e "$Cyan + $White System Uptime $Red: $BCyan $upDays days $upHours hours $upMins minutes $upSecs seconds $Color_Off"
+echo -e "$Cyan + $White Disk Space Used $Red: $BCyan $DISC1 $Color_Off"
+echo -e "$Cyan + $White Free Disk Space $Red: $BCyan $DISC2 $Color_Off"
 echo -e "$Cyan + $White IP Address $Color_Off"
-echo -e "$Cyan + $White Internal: $Cyan = $BCyan `ifconfig eth1 | grep "inet end" | cut -d ":" -f 2 | cut -d " " -f 2` $Color_Off"
-echo -e "$Cyan + $White External: $Cyan = $BCyan `wget -q -O - http://icanhazip.com/ | tail` $Color_Off"
+echo -e "$Cyan + $White Internal: $Red: $BCyan `ifconfig eth1 | grep "inet end" | cut -d ":" -f 2 | cut -d " " -f 2` $Color_Off"
+echo -e "$Cyan + $White External: $Red: $BCyan `wget -q -O - http://icanhazip.com/ | tail` $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan ++++++++++++++++++++++++++++: $White Report $Cyan :+++++++++++++++++++++++++++++ $Color_Off"
+echo -e "$Cyan +++++++++++++++++++++++++: $White Report $Cyan :++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
+echo -e "$Cyan + $White System $Red : $BCyan $PACMAN packages can be updated $Color_Off"
 maint=`cat /etc/motd-maint`
 if [[ $maint = "Nothing to report" ]]; then
     echo -e "$Green Nothing to report $Color_Off"
