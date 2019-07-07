@@ -30,6 +30,32 @@ DISTRO=`uname -m`
 CPU=`uname -p`
 
 #Storage
+#HD0
+HD0SIZE=
+HD0USED=
+HD0FREE=
+HD0TEMP=`hddtemp -n /dev/sda`
+#HD1
+HD1SIZE=
+HD1USED=
+HD1FREE=
+HD1TEMP=`hddtemp -n /dev/sdb`
+#HD2
+HD2SIZE=
+HD2USED=
+HD2FREE=
+HD2TEMP=`hddtemp -n /dev/sdc`
+#HD3
+HD3SIZE=
+HD3USED=
+HD3FREE=
+HD3TEMP=`hddtemp -n /dev/sdd`
+#HD4
+HD4SIZE=
+HD4USED=
+HD4FREE=
+HD4TEMP=`hddtemp -n /dev/sde`
+
 DISC1=`df -h | grep /dev/sda | awk '{print $5}'`
 DISC2=`df -h | grep /dev/sda | awk '{print $4}'`
 
@@ -56,25 +82,24 @@ MEMORYTOTAL=`free -t -m | grep "Mem" | awk '{print $2" MB"}'`
 PSA=`ps -Afl | wc -l`
 PSU=`ps U $USER h | wc -l`
 
-#HDD Temp
-HDD1=`hddtemp -n /dev/sda`
+#Report
+PACMAN=0
+maint=`cat /etc/motd-maint`
 
 clear
 
 echo ""
 echo ""
-echo -e "$BRed If you gain access to this server without permission logout now!! $Color_Off"
+echo -e "$BRed      If you gain access to this server without permission logout now!! $Color_Off"
 echo ""
+echo " ______                         _   _                     "
+echo " | ___ \                       | | | |                    "
+echo " | |_/ / __ ___  _ __ ___   ___| |_| |__   ___ _   _ ___  "
+echo " |  __/ '__/ _ \| '_   _ \ / _ \ __| '_ \ / _ \ | | / __| "
+echo " | |  | | | (_) | | | | | |  __/ |_| | | |  __/ |_| \__ \ "
+echo " \_|  |_|  \___/|_| |_| |_|\___|\__|_| |_|\___|\__,_|___/ "
 echo ""
-echo "      ██████╗ ██████╗  ██████╗ ███╗   ███╗███████╗████████╗██╗  ██╗███████╗██╗   ██╗███████╗"
-echo "      ██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔════╝╚══██╔══╝██║  ██║██╔════╝██║   ██║██╔════╝"
-echo "      ██████╔╝██████╔╝██║   ██║██╔████╔██║█████╗     ██║   ███████║█████╗  ██║   ██║███████╗"
-echo "      ██╔═══╝ ██╔══██╗██║   ██║██║╚██╔╝██║██╔══╝     ██║   ██╔══██║██╔══╝  ██║   ██║╚════██║"
-echo "      ██║     ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗   ██║   ██║  ██║███████╗╚██████╔╝███████║"
-echo "      ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝"
-echo ""
-echo ""
-echo -e "$Yellow [Home-Server] $Color_Off"
+echo -e "$Yellow    [Home-Server] $Color_Off"
 echo ""
 echo -e "$Cyan +++++++++++++++++++++++++: $White System Data $Cyan :++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
@@ -84,15 +109,13 @@ echo -e "$Cyan + $White Distro......$Red: $BCyan $DISTRO $Color_Off"
 echo -e "$Cyan + $White CPU......$Red: $BCyan $CPU $Color_Off"
 echo -e "$Cyan + $White Users......$Red: $BCyan Currently `users | wc -w` users logged on $Color_Off"
 echo -e "$Cyan + $Color_Off"
+echo -e "$Cyan ++++++++++++++++++++++++++: $White Storage $Cyan :+++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan +++++++++++++++++++++++++: $White Storage $Cyan :++++++++++++++++++++++++++ $Color_Off"
-echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $White Main HD......$Red: $BCyan Size$Red: $MAINSIZE Used$Red: $MAINUSED Free$Red: $MAINFREE Temp $MAINTEMP ºC | $Color_Off"
-echo -e "$Cyan + $White HD 1......$Red$Red: $BCyan Size$Red: $HD1SIZE Used$Red: $HD1USED Free$Red: $HD1FREE Temp $HD1TEMP ºC | $Color_Off"
-echo -e "$Cyan + $White HD 2......$Red$Red: $BCyan Size$Red: $HD2SIZE Used$Red: $HD2USED Free$Red: $HD2FREE Temp $HD2TEMP ºC | $Color_Off"
-echo -e "$Cyan + $White HD 3......$Red$Red: $BCyan Size$Red: $HD3SIZE Used$Red: $HD3USED Free$Red: $HD3FREE Temp $HD3TEMP ºC | $Color_Off"
-echo -e "$Cyan + $White HD 4......$Red$Red: $BCyan Size$Red: $HD4SIZE Used$Red: $HD4USED Free$Red: $HD4FREE Temp $HD4TEMP ºC | $Color_Off"
-echo -e "$Cyan + $Color_Off"
+echo -e "$Cyan + $White HD 0......$Red: $BCyan Size$Red: $HD0SIZE $BCyan Used$Red: $HD0USED $BCyan Free$Red: $HD0FREE $BCyan Temp $HD0TEMP $BCyan ºC $Color_Off"
+echo -e "$Cyan + $White HD 1......$Red: $BCyan Size$Red: $HD1SIZE $BCyan Used$Red: $HD1USED $BCyan Free$Red: $HD1FREE $BCyan Temp $HD1TEMP $BCyan ºC $Color_Off"
+echo -e "$Cyan + $White HD 2......$Red: $BCyan Size$Red: $HD2SIZE $BCyan Used$Red: $HD2USED $BCyan Free$Red: $HD2FREE $BCyan Temp $HD2TEMP $BCyan ºC $Color_Off"
+echo -e "$Cyan + $White HD 3......$Red: $BCyan Size$Red: $HD3SIZE $BCyan Used$Red: $HD3USED $BCyan Free$Red: $HD3FREE $BCyan Temp $HD3TEMP $BCyan ºC $Color_Off"
+echo -e "$Cyan + $White HD 4......$Red: $BCyan Size$Red: $HD4SIZE $BCyan Used$Red: $HD4USED $BCyan Free$Red: $HD4FREE $BCyan Temp $HD4TEMP $BCyan ºC $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan +++++++++++++++++++++++++: $White User Data $Cyan :++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
@@ -103,24 +126,19 @@ echo -e "$Cyan + $White IP Address........................$Red: $Color_Off"
 echo -e "$Cyan + $White Internal...... $Red: $BCyan $INTERNALIP $Color_Off"
 echo -e "$Cyan + $White External...... $Red: $BCyan $EXTERNALIP $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan +++++++++++++++++++++++++: $White Hardware $Cyan :++++++++++++++++++++++++++ $Color_Off"
+echo -e "$Cyan ++++++++++++++++++++++++++: $White Hardware $Cyan :++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan + $White CPU Temperature...... $Red: $BCyan $CPUTEMP C $Color_Off"
 echo -e "$Cyan + $White Memory Used/Total...... $Red: $BCyan $MEMORYUSED / $MEMORYTOTAL $Color_Off"
 echo -e "$Cyan + $White Processes...... $Red: $BCyan You are running $PSU of $PSA processes $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan +++++++++++++++++++++++++: $White Report $Cyan :++++++++++++++++++++++++++ $Color_Off"
+echo -e "$Cyan ++++++++++++++++++++++++++: $White Report $Cyan :++++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan + $White System......$Red : $BCyan $PACMAN packages can be updated $Color_Off"
-maint=`cat /etc/motd-maint`
 if [[ $maint = "Nothing to report" ]]; then
     echo -e "$Green Nothing to report $Color_Off"
 else
     echo -e "$Red $maint $Color_Off"
 fi
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ $Color_Off"
-echo ""
+echo -e "$Cyan +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ $Color_Off"
