@@ -24,67 +24,64 @@ BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
 #System Data
-HOSTNAME=`uname -n`
-KERNEL=`uname -r`
-DISTRO=`uname -m`
-CPU=`uname -p`
+NAME=$(uname -n)
+KERNEL=$(uname -r)
+DISTRO=$(uname -m)
+CPU=$(uname -p)
 
 #Storage
 #HD0
-HD0SIZE=
-HD0USED=
-HD0FREE=
-HD0TEMP=`hddtemp -n /dev/sda`
+HD0SIZE=$(df -h | grep /dev/sda | awk '{print $2}')
+HD0USED=$(df -h | grep /dev/sda | awk '{print $5}')
+HD0FREE=$(df -h | grep /dev/sda | awk '{print $4}')
+HD0TEMP=$(hddtemp -n /dev/sda)
 #HD1
-HD1SIZE=
-HD1USED=
-HD1FREE=
-HD1TEMP=`hddtemp -n /dev/sdb`
+HD1SIZE=$(df -h | grep /dev/sdb | awk '{print $2}')
+HD1USED=$(df -h | grep /dev/sdb | awk '{print $5}')
+HD1FREE=$(df -h | grep /dev/sdb | awk '{print $4}')
+HD1TEMP=$(hddtemp -n /dev/sdb)
 #HD2
-HD2SIZE=
-HD2USED=
-HD2FREE=
-HD2TEMP=`hddtemp -n /dev/sdc`
+#HD2SIZE=$(df -h | grep /dev/sdc | awk '{print $2}')
+#HD2USED=$(df -h | grep /dev/sdc | awk '{print $5}')
+#HD2FREE=$(df -h | grep /dev/sdc | awk '{print $4}')
+#HD2TEMP=$(hddtemp -n /dev/sdc)
 #HD3
-HD3SIZE=
-HD3USED=
-HD3FREE=
-HD3TEMP=`hddtemp -n /dev/sdd`
+#HD3SIZE=$(df -h | grep /dev/sdd | awk '{print $2}')
+#HD3USED=$(df -h | grep /dev/sdd | awk '{print $5}')
+#HD3FREE=$(df -h | grep /dev/sdd | awk '{print $4}')
+#HD3TEMP=$(hddtemp -n /dev/sdd)
 #HD4
-HD4SIZE=
-HD4USED=
-HD4FREE=
-HD4TEMP=`hddtemp -n /dev/sde`
-
-DISC1=`df -h | grep /dev/sda | awk '{print $5}'`
-DISC2=`df -h | grep /dev/sda | awk '{print $4}'`
+#HD4SIZE=$(df -h | grep /dev/sde | awk '{print $2}')
+#HD4USED=$(df -h | grep /dev/sde | awk '{print $5}')
+#HD4FREE=$(df -h | grep /dev/sde | awk '{print $4}')
+#HD4TEMP=$(hddtemp -n /dev/sde)
 
 #User Data
-USER=`whoami`
+USER=$(whoami)
 #System Load
-LOAD1=`cat /proc/loadavg | awk {'print $1'}`
-LOAD5=`cat /proc/loadavg | awk {'print $2'}`
-LOAD15=`cat /proc/loadavg | awk {'print $3'}`
+LOAD1=$(cat /proc/loadavg | awk {'print $1'})
+LOAD5=$(cat /proc/loadavg | awk {'print $2'})
+LOAD15=$(cat /proc/loadavg | awk {'print $3'})
 #System uptime
-uptime=`cat /proc/uptime | cut -f1 -d.`
+uptime=$(cat /proc/uptime | cut -f1 -d.)
 upDays=$((uptime/60/60/24))
 upHours=$((uptime/60/60%24))
 upMins=$((uptime/60%60))
 upSecs=$((uptime%60))
 #ISP
-INTERNALIP=`ifconfig enp0s3 | grep "inet end" | cut -d ":" -f 2 | cut -d " " -f 2`
-EXTERNALIP=`wget -q -O - http://icanhazip.com/ | tail`
+INTERNALIP=$(ifconfig enp0s3 | grep "inet end" | cut -d ":" -f 2 | cut -d " " -f 2)
+EXTERNALIP=$(wget -q -O - http://icanhazip.com/ | tail)
 
 #Hardware
-CPUTEMP=`acpi -t | cut -f4 -d' '`
-MEMORYUSED=`free -t -m | grep "Mem" | awk '{print $3" MB"}'`
-MEMORYTOTAL=`free -t -m | grep "Mem" | awk '{print $2" MB"}'`
-PSA=`ps -Afl | wc -l`
-PSU=`ps U $USER h | wc -l`
+CPUTEMP=$(acpi -t | cut -f 4 -d ' ')
+MEMORYUSED=$(free -t -m | grep "Mem" | awk '{print $3" MB"}')
+MEMORYTOTAL=$(free -t -m | grep "Mem" | awk '{print $2" MB"}')
+PSA=$(ps -Afl | wc -l)
+PSU=$(ps U ${USER} h | wc -l)
 
 #Report
-PACMAN=0
-maint=`cat /etc/motd-maint`
+PACMAN=$(0)
+maint=$(cat /etc/motd-maint)
 
 clear
 
@@ -102,19 +99,19 @@ echo ""
 echo ""
 echo -e "$Cyan +++++++++++++++++++++++++: $White System Data $Cyan :++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $White Hostname......$Red: $BCyan $HOSTNAME $Color_Off"
+echo -e "$Cyan + $White Hostname......$Red: $BCyan $NAME $Color_Off"
 echo -e "$Cyan + $White Kernel........$Red: $BCyan $KERNEL $Color_Off"
 echo -e "$Cyan + $White Distro........$Red: $BCyan $DISTRO $Color_Off"
 echo -e "$Cyan + $White CPU...........$Red: $BCyan $CPU $Color_Off"
-echo -e "$Cyan + $White Users.........$Red: $BCyan Currently `users | wc -w` users logged on $Color_Off"
+echo -e "$Cyan + $White Users.........$Red: $BCyan Currently $(users | wc -w) users logged on $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan ++++++++++++++++++++++++++: $White Storage $Cyan :+++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan + $White HD 0......$Red: $BCyan Size$Red: $HD0SIZE $BCyan Used$Red: $HD0USED $BCyan Free$Red: $HD0FREE $BCyan Temp $HD0TEMP $BCyan ºC $Color_Off"
 echo -e "$Cyan + $White HD 1......$Red: $BCyan Size$Red: $HD1SIZE $BCyan Used$Red: $HD1USED $BCyan Free$Red: $HD1FREE $BCyan Temp $HD1TEMP $BCyan ºC $Color_Off"
-echo -e "$Cyan + $White HD 2......$Red: $BCyan Size$Red: $HD2SIZE $BCyan Used$Red: $HD2USED $BCyan Free$Red: $HD2FREE $BCyan Temp $HD2TEMP $BCyan ºC $Color_Off"
-echo -e "$Cyan + $White HD 3......$Red: $BCyan Size$Red: $HD3SIZE $BCyan Used$Red: $HD3USED $BCyan Free$Red: $HD3FREE $BCyan Temp $HD3TEMP $BCyan ºC $Color_Off"
-echo -e "$Cyan + $White HD 4......$Red: $BCyan Size$Red: $HD4SIZE $BCyan Used$Red: $HD4USED $BCyan Free$Red: $HD4FREE $BCyan Temp $HD4TEMP $BCyan ºC $Color_Off"
+#echo -e "$Cyan + $White HD 2......$Red: $BCyan Size$Red: $HD2SIZE $BCyan Used$Red: $HD2USED $BCyan Free$Red: $HD2FREE $BCyan Temp $HD2TEMP $BCyan ºC $Color_Off"
+#echo -e "$Cyan + $White HD 3......$Red: $BCyan Size$Red: $HD3SIZE $BCyan Used$Red: $HD3USED $BCyan Free$Red: $HD3FREE $BCyan Temp $HD3TEMP $BCyan ºC $Color_Off"
+#echo -e "$Cyan + $White HD 4......$Red: $BCyan Size$Red: $HD4SIZE $BCyan Used$Red: $HD4USED $BCyan Free$Red: $HD4FREE $BCyan Temp $HD4TEMP $BCyan ºC $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan +++++++++++++++++++++++++: $White User Data $Cyan :++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
@@ -127,17 +124,13 @@ echo -e "$Cyan + $White External......$Red: $BCyan $EXTERNALIP $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan ++++++++++++++++++++++++++: $White Hardware $Cyan :++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $White CPU Temperature........$Red: $BCyan $CPUTEMP C $Color_Off"
+echo -e "$Cyan + $White CPU Temperature........$Red: $BCyan $CPUTEMP ºC $Color_Off"
 echo -e "$Cyan + $White Memory Used/Total......$Red: $BCyan $MEMORYUSED / $MEMORYTOTAL $Color_Off"
 echo -e "$Cyan + $White Processes..............$Red: $BCyan You are running $PSU of $PSA processes $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan ++++++++++++++++++++++++++: $White Report $Cyan :++++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan + $White System......$Red : $BCyan $PACMAN packages can be updated $Color_Off"
-if [[ $maint = "Nothing to report" ]]; then
-    echo -e "$Green Nothing to report $Color_Off"
-else
-    echo -e "$Red $maint $Color_Off"
-fi
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ $Color_Off"
+echo ""
