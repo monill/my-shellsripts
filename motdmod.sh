@@ -70,7 +70,8 @@ upHours=$((uptime/60/60%24))
 upMins=$((uptime/60%60))
 upSecs=$((uptime%60))
 #ISP
-INTERNALIP=$(ifconfig enp0s3 | grep "inet end" | cut -d ":" -f 2 | cut -d " " -f 2)
+#INTERNALIP=$(ifconfig enp0s3 | grep "inet end" | cut -d ":" -f 2 | cut -d " " -f 2)
+INTERNALIP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
 EXTERNALIP=$(wget -q -O - http://icanhazip.com/ | tail)
 
 #Hardware
