@@ -27,7 +27,8 @@ BWhite='\033[1;37m'       # White
 NAME=$(uname -n)
 KERNEL=$(uname -r)
 DISTRO=$(uname -m)
-CPU=$(uname -p)
+CPU=$(cat /proc/cpuinfo | grep 'model name')
+USERS=$(users | wc -w)
 
 #Storage
 #HD0
@@ -103,22 +104,22 @@ echo -e "$Cyan + $White Hostname......$Red: $BCyan $NAME $Color_Off"
 echo -e "$Cyan + $White Kernel........$Red: $BCyan $KERNEL $Color_Off"
 echo -e "$Cyan + $White Distro........$Red: $BCyan $DISTRO $Color_Off"
 echo -e "$Cyan + $White CPU...........$Red: $BCyan $CPU $Color_Off"
-echo -e "$Cyan + $White Users.........$Red: $BCyan Currently $(users | wc -w) users logged on $Color_Off"
+echo -e "$Cyan + $White Users.........$Red: $BCyan Currently $USERS users logged on $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan ++++++++++++++++++++++++++: $White Storage $Cyan :+++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
-echo -e "$Cyan + $White HD 0......$Red: $BCyan Size$Red: $HD0SIZE $BCyan Used$Red: $HD0USED $BCyan Free$Red: $HD0FREE $BCyan Temp $HD0TEMP $BCyan ºC $Color_Off"
-echo -e "$Cyan + $White HD 1......$Red: $BCyan Size$Red: $HD1SIZE $BCyan Used$Red: $HD1USED $BCyan Free$Red: $HD1FREE $BCyan Temp $HD1TEMP $BCyan ºC $Color_Off"
-#echo -e "$Cyan + $White HD 2......$Red: $BCyan Size$Red: $HD2SIZE $BCyan Used$Red: $HD2USED $BCyan Free$Red: $HD2FREE $BCyan Temp $HD2TEMP $BCyan ºC $Color_Off"
-#echo -e "$Cyan + $White HD 3......$Red: $BCyan Size$Red: $HD3SIZE $BCyan Used$Red: $HD3USED $BCyan Free$Red: $HD3FREE $BCyan Temp $HD3TEMP $BCyan ºC $Color_Off"
-#echo -e "$Cyan + $White HD 4......$Red: $BCyan Size$Red: $HD4SIZE $BCyan Used$Red: $HD4USED $BCyan Free$Red: $HD4FREE $BCyan Temp $HD4TEMP $BCyan ºC $Color_Off"
+echo -e "$Cyan + $White HD 0......$Red: $BCyan Size$Red: $Green $HD0SIZE $BCyan Used$Red: $Green $HD0USED $BCyan Free$Red: $Green $HD0FREE $BCyan Temp $Green $HD0TEMP $BCyan ºC $Color_Off"
+echo -e "$Cyan + $White HD 1......$Red: $BCyan Size$Red: $Green $HD1SIZE $BCyan Used$Red: $Green $HD1USED $BCyan Free$Red: $Green $HD1FREE $BCyan Temp $Green $HD1TEMP $BCyan ºC $Color_Off"
+#echo -e "$Cyan + $White HD 2......$Red: $BCyan Size$Red: $Green $HD2SIZE $BCyan Used$Red: $Green $HD2USED $BCyan Free$Red: $Green $HD2FREE $BCyan Temp $Green $HD2TEMP $BCyan ºC $Color_Off"
+#echo -e "$Cyan + $White HD 3......$Red: $BCyan Size$Red: $Green $HD3SIZE $BCyan Used$Red: $Green $HD3USED $BCyan Free$Red: $Green $HD3FREE $BCyan Temp $Green $HD3TEMP $BCyan ºC $Color_Off"
+#echo -e "$Cyan + $White HD 4......$Red: $BCyan Size$Red: $Green $HD4SIZE $BCyan Used$Red: $Green $HD4USED $BCyan Free$Red: $Green $HD4FREE $BCyan Temp $Green $HD4TEMP $BCyan ºC $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan +++++++++++++++++++++++++: $White User Data $Cyan :++++++++++++++++++++++++++ $Color_Off"
 echo -e "$Cyan + $Color_Off"
 echo -e "$Cyan + $White Current User.......$Red: $BCyan $USER $Color_Off"
-echo -e "$Cyan + $White CPU Usage..........$Red: $BCyan 1 Min$Red: $BCyan $LOAD1 5 Min$Red: $BCyan $LOAD5 15 Min$Red: $BCyan $LOAD15 $Color_Off"
+echo -e "$Cyan + $White CPU Usage..........$Red: $BCyan 1 Min$Red: $Green $LOAD1 5 Min$Red: $Green $LOAD5 15 Min$Red: $Green $LOAD15 $Color_Off"
 echo -e "$Cyan + $White System Uptime......$Red: $BCyan $upDays days $upHours hours $upMins minutes $upSecs seconds $Color_Off"
-echo -e "$Cyan + $White ........................IP Address........................$Red: $Color_Off"
+echo -e "$Cyan + $White ........................IP Address........................ $Color_Off"
 echo -e "$Cyan + $White Internal......$Red: $BCyan $INTERNALIP $Color_Off"
 echo -e "$Cyan + $White External......$Red: $BCyan $EXTERNALIP $Color_Off"
 echo -e "$Cyan + $Color_Off"
