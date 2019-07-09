@@ -13,10 +13,10 @@ for foo in *; do
     fi
     #It does with the contents of each directory.
     if [[ -d $foo ]]; then
-        echo "entering $foo"
+        #echo "entering $foo"
         cd $foo
         converter.sh
-        echo "leaving $foo"
+        #echo "leaving $foo"
         cd ..
     fi
 done
